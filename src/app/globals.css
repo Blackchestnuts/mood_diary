@@ -1,0 +1,210 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.875rem;
+  /* 温暖奶油白底色 */
+  --background: oklch(0.985 0.008 75);
+  --foreground: oklch(0.28 0.02 40);
+  --card: oklch(0.995 0.005 75);
+  --card-foreground: oklch(0.28 0.02 40);
+  --popover: oklch(0.995 0.005 75);
+  --popover-foreground: oklch(0.28 0.02 40);
+  /* 温柔玫瑰粉作为主色 */
+  --primary: oklch(0.68 0.11 20);
+  --primary-foreground: oklch(0.99 0.005 75);
+  /* 柔和米杏色 */
+  --secondary: oklch(0.94 0.018 70);
+  --secondary-foreground: oklch(0.35 0.025 40);
+  --muted: oklch(0.95 0.012 75);
+  --muted-foreground: oklch(0.55 0.02 55);
+  /* 桃色强调 */
+  --accent: oklch(0.92 0.04 55);
+  --accent-foreground: oklch(0.35 0.04 40);
+  --destructive: oklch(0.62 0.18 25);
+  --border: oklch(0.9 0.015 70);
+  --input: oklch(0.92 0.012 70);
+  --ring: oklch(0.68 0.11 20);
+  --chart-1: oklch(0.72 0.13 25);
+  --chart-2: oklch(0.75 0.1 150);
+  --chart-3: oklch(0.78 0.1 80);
+  --chart-4: oklch(0.7 0.12 330);
+  --chart-5: oklch(0.75 0.1 200);
+  --sidebar: oklch(0.97 0.012 70);
+  --sidebar-foreground: oklch(0.3 0.02 45);
+  --sidebar-primary: oklch(0.68 0.11 20);
+  --sidebar-primary-foreground: oklch(0.99 0.005 75);
+  --sidebar-accent: oklch(0.93 0.025 60);
+  --sidebar-accent-foreground: oklch(0.35 0.04 40);
+  --sidebar-border: oklch(0.9 0.015 70);
+  --sidebar-ring: oklch(0.68 0.11 20);
+}
+
+.dark {
+  --background: oklch(0.18 0.012 45);
+  --foreground: oklch(0.93 0.012 70);
+  --card: oklch(0.22 0.014 45);
+  --card-foreground: oklch(0.93 0.012 70);
+  --popover: oklch(0.22 0.014 45);
+  --popover-foreground: oklch(0.93 0.012 70);
+  --primary: oklch(0.74 0.12 25);
+  --primary-foreground: oklch(0.2 0.02 45);
+  --secondary: oklch(0.27 0.016 45);
+  --secondary-foreground: oklch(0.93 0.012 70);
+  --muted: oklch(0.27 0.014 45);
+  --muted-foreground: oklch(0.68 0.018 60);
+  --accent: oklch(0.32 0.04 40);
+  --accent-foreground: oklch(0.92 0.02 70);
+  --destructive: oklch(0.68 0.19 25);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.74 0.12 25);
+  --chart-1: oklch(0.74 0.13 25);
+  --chart-2: oklch(0.72 0.1 150);
+  --chart-3: oklch(0.75 0.1 80);
+  --chart-4: oklch(0.7 0.12 330);
+  --chart-5: oklch(0.72 0.1 200);
+  --sidebar: oklch(0.2 0.013 45);
+  --sidebar-foreground: oklch(0.93 0.012 70);
+  --sidebar-primary: oklch(0.74 0.12 25);
+  --sidebar-primary-foreground: oklch(0.2 0.02 45);
+  --sidebar-accent: oklch(0.27 0.018 45);
+  --sidebar-accent-foreground: oklch(0.92 0.02 70);
+  --sidebar-border: oklch(1 0 0 / 12%);
+  --sidebar-ring: oklch(0.74 0.12 25);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* 自定义滚动条 - 温柔风 */
+@layer utilities {
+  .scrollbar-gentle {
+    scrollbar-width: thin;
+    scrollbar-color: oklch(0.85 0.02 60) transparent;
+  }
+  .scrollbar-gentle::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .scrollbar-gentle::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-gentle::-webkit-scrollbar-thumb {
+    background-color: oklch(0.85 0.02 60);
+    border-radius: 9999px;
+  }
+  .scrollbar-gentle::-webkit-scrollbar-thumb:hover {
+    background-color: oklch(0.75 0.04 50);
+  }
+}
+
+/* 漂浮信纸动画 */
+@keyframes float-letter {
+  0% {
+    transform: translateY(110vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--letter-opacity, 0.5);
+  }
+  90% {
+    opacity: var(--letter-opacity, 0.5);
+  }
+  100% {
+    transform: translateY(-20vh) translateX(var(--letter-drift, 40px)) rotate(var(--letter-rotate, 15deg));
+    opacity: 0;
+  }
+}
+
+@keyframes gentle-sway {
+  0%, 100% {
+    transform: translateY(0) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(1deg);
+  }
+}
+
+@keyframes soft-pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.animate-gentle-sway {
+  animation: gentle-sway 4s ease-in-out infinite;
+}
+
+.animate-soft-pulse {
+  animation: soft-pulse 3s ease-in-out infinite;
+}
+
+/* 纸张纹理背景 */
+.paper-texture {
+  background-image:
+    radial-gradient(circle at 20% 30%, oklch(0.92 0.04 55 / 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, oklch(0.9 0.05 150 / 0.1) 0%, transparent 40%);
+}
+
+/* 渐变文字 */
+.text-gradient-warm {
+  background: linear-gradient(135deg, oklch(0.68 0.11 20), oklch(0.72 0.1 60));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

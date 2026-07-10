@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// 匿名会话 —— 用 cookie 追踪用户,不存储任何个人身份信息
+model Session {
+  id        String   @id @default(cuid())
+  // 匿名昵称,随机生成,如"匿名的小鹿"
+  nickname  String
+  avatarSeed String  @default("")
+  createdAt DateTime @default(now())
+  lastSeen  DateTime @default(now())
+
+  diaries   Diary[]
+  driftsInitiated DriftExchange[] @relation("Requester")
+}
+
+// 日记
+model Diary {
+  id          String   @id @default(cuid())
+  title       String
+  content     String
+  // 心情: happy / calm / sad / excited / anxious / grateful / thoughtful / angry
+  mood        String   @default("calm")
+  // 类型: daily / mood / drift
+  type        String   @default("daily")
+  // 心情模板 id (可空)
+  templateId  String?
+  // 作者会话 id
+  authorId    String
+  author      Session  @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  // 状态: personal(仅自己) / drifting(漂流中) / exchanged(已交换)
+  status      String   @default("personal")
+  // 是否由系统预置的"陌生人"日记 (用于漂流池)
+  isSample    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  driftAsA    DriftExchange[] @relation("DiaryA")
+  driftAsB    DriftExchange[] @relation("DiaryB")
+
+  @@index([authorId])
+  @@index([status])
+  @@index([type])
+}
+
+// 漂流交换记录
+// diaryA 是发起方(收信人)的日记, diaryB 是被漂流过来的陌生人日记
+// 当 diaryA 的作者接受交换后, 双方都能看到彼此的日记
+model DriftExchange {
+  id          String   @id @default(cuid())
+  diaryAId    String
+  diaryBId    String
+  diaryA      Diary    @relation("DiaryA", fields: [diaryAId], references: [id], onDelete: Cascade)
+  diaryB      Diary    @relation("DiaryB", fields: [diaryBId], references: [id], onDelete: Cascade)
+  // 发起接受交换的会话(即 diaryA 的作者)
+  requesterId String
+  requester   Session  @relation("Requester", fields: [requesterId], references: [id], onDelete: Cascade)
+  // pending(待处理) / accepted(已接受, 双方可互看) / rejected(已拒绝)
+  status      String   @default("pending")
+  createdAt   DateTime @default(now())
+  resolvedAt  DateTime?
+
+  @@index([requesterId])
+  @@index([status])
+}
+
+// 心情日记模板
+model MoodTemplate {
+  id          String   @id @default(cuid())
+  name        String
+  emoji       String
+  // 主题色 hex
+  color       String
+  description String
+  // 引导提示语, 用 | 分隔多条
+  prompts     String
+  // 分类标签
+  category    String   @default("mood")
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  @@index([category])
+}
